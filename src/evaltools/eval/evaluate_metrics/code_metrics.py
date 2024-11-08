@@ -96,3 +96,28 @@ class LatencyMetric(BaseMetric):
             "max": df[cls.METRIC_NAME].max(),
             "min": df[cls.METRIC_NAME].min(),
         }
+
+
+
+class NumberOfEsMetric(BaseMetric):
+    METRIC_NAME = "number_of_es"
+
+    @classmethod
+    def evaluator_fn(cls, **kwargs):
+        def number_of_es(*, response, **kwargs):
+            if response is None:
+                logger.warning(f"Received response of None, can't compute {cls.METRIC_NAME} metric. Setting to -1.")
+                return {cls.METRIC_NAME: -1}
+            return {cls.METRIC_NAME: sum([1 for char in response if char == "e"])}
+
+        return number_of_es
+
+    @classmethod
+    def get_aggregate_stats(cls, df):
+        # remove -1 values from the mean calculation
+        df = df[df[cls.METRIC_NAME] != -1]
+        return {
+            "mean": round(df[cls.METRIC_NAME].mean(), 2),
+            "max": int(df[cls.METRIC_NAME].max()),
+            "min": int(df[cls.METRIC_NAME].min()),
+        }

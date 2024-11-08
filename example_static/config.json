@@ -1,18 +1,7 @@
 {
     "testdata_path": "./exp01/qa.csv",
     "requested_metrics": [
-        "gpt_groundedness",
-        "gpt_relevance",
-        "gpt_coherence",
-        "gpt_similarity",
-        "gpt_fluency",
-        "mycoherence",
-        "myrelevance",
-        "mygroundedness",
-        "f1_score",
-        "answer_length",
-        "latency",
-        "has_citation",
-        "citation_match"
+        "number_of_es",
+        "tolkienness"
     ]
 }

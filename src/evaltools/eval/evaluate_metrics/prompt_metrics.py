@@ -62,3 +62,6 @@ class GroundednessMetric(CustomRatingMetric):
 
 class DontKnownessMetric(CustomRatingMetric):
     METRIC_NAME = "dontknowness"
+
+class TolkiennessMetric(CustomRatingMetric):
+    METRIC_NAME = "tolkienness"

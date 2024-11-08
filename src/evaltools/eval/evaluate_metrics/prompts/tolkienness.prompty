@@ -1,0 +1,72 @@
+---
+name: Tolkienness
+description: Evaluates how closely the language model's response aligns with the themes, style, and world-building characteristics typical of J.R.R. Tolkien's works.
+model:
+  api: chat
+  configuration:
+    type: azure_openai
+    azure_deployment: ${env:AZURE_DEPLOYMENT}
+    azure_endpoint: ${env:AZURE_OPENAI_ENDPOINT}
+  parameters:
+    temperature: 0.0
+    max_tokens: 1
+    top_p: 1.0
+    presence_penalty: 0
+    frequency_penalty: 0
+    response_format:
+      type: text
+
+inputs:
+  query:
+    type: string
+  response:
+    type: string
+  context:
+    type: string
+
+sample:
+  question: What are the main goals of Perseverance Mars rover mission?
+  answer: The main goals of the Perseverance Mars rover mission are to search for signs of ancient life and collect rock and soil samples for possible return to Earth.
+  context: The Mars rover, Perseverance, was launched in 2020 with the main goal of searching for signs of ancient life on Mars. The rover also carries an experiment called MOXIE, which aims to generate oxygen from the Martian atmosphere.
+---
+system:
+You are an AI assistant. You will be given the definition of an evaluation metric for assessing how closely an answer aligns with the themes, style, and world-building characteristics typical of J.R.R. Tolkien's works. Your job is to compute an accurate evaluation score using the provided evaluation metric. You should return a single integer value between 1 to 5 representing the Tolkien-Likeness score. You will include no other text or information.
+user:
+Tolkien-Likeness measures how well the answer reflects the key elements of Tolkien's writing, including his world-building, character development, and thematic depth. Consider whether the answer embodies the tone, style, and complexity found in Tolkien's works when evaluating the response. Given the context and question, score the Tolkien-Likeness of the answer between one to five stars using the following rating scale:
+One star: the answer completely lacks Tolkien-like qualities
+Two stars: the answer mostly lacks Tolkien-like qualities
+Three stars: the answer has some Tolkien-like qualities
+Four stars: the answer is mostly Tolkien-like
+Five stars: the answer has perfect Tolkien-like qualities
+
+This rating value should always be an integer between 1 and 5. So the rating produced should be 1 or 2 or 3 or 4 or 5.
+
+context: The Shire is a peaceful and idyllic land where hobbits live, characterized by rolling hills, green fields, and cozy homes.
+question: What is the culture of the Shire like?
+answer: The Shire is a bustling city filled with modern buildings and technological advances, where hobbits work in factories and live in high-rise apartments.
+stars: 1
+
+context: The One Ring is an ancient artifact forged by Sauron in the fires of Mount Doom to control the other Rings of Power and dominate Middle-earth.
+question: What does the One Ring symbolize?
+answer: The One Ring symbolizes the importance of power and progress in achieving global unity and peace.
+stars: 2
+
+context: Gandalf is a wise wizard who helps guide the Fellowship of the Ring in their quest to destroy the One Ring.
+question: Who is Gandalf?
+answer: Gandalf is a famous character from a fantasy story who is known for his magical abilities and his role as a leader in the fight against evil. He often speaks cryptic words of wisdom.
+stars: 3
+
+context: Middle-earth is a world of diverse races and cultures, including Men, Elves, Dwarves, and Orcs, each with its own history and traditions.
+question: How is Middle-earth divided by race?
+answer: Middle-earth is divided into regions where races like Men, Elves, and Dwarves live in their ancient cities. While their cultures vary greatly, all share a deep connection to the land and its history.
+stars: 4
+
+context: The Battle of Helm's Deep was a pivotal moment in The Lord of the Rings where the people of Rohan defended their stronghold against Saruman’s forces.
+question: What happened during the Battle of Helm's Deep?
+answer: The Battle of Helm's Deep was a desperate stand of courage and defiance against Saruman’s forces. The men of Rohan, with their king and warriors, faced overwhelming odds but fought valiantly to protect their land, bolstered by the arrival of Gandalf and the Riders of Rohan, turning the tide and ensuring hope for Middle-earth's future.
+stars: 5
+
+context: {{context}}
+question: {{query}}
+answer: {{response}}
+stars:
