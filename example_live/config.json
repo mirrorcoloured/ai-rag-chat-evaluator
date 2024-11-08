@@ -1,0 +1,27 @@
+{
+    "testdata_path": "./qa.jsonl",
+    "results_dir": "./experiment<TIMESTAMP>",
+    "requested_metrics": [
+        "gpt_groundedness",
+        "gpt_relevance",
+        "gpt_coherence",
+        "gpt_similarity",
+        "gpt_fluency",
+        "mycoherence",
+        "myrelevance",
+        "mygroundedness",
+        "f1_score",
+        "answer_length",
+        "latency",
+        "has_citation",
+        "citation_match"
+    ],
+    "target_url": "http://127.0.0.1:5000/chat",
+    "target_parameters": {
+        "overrides": {
+            "searchIndex": "scugog-poc-index-v-2"
+        }
+    },
+    "target_response_answer_jmespath": "answer",
+    "target_response_context_jmespath": "data_points"
+}
